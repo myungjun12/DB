@@ -1,0 +1,112 @@
+/*** UPDATE 실습 ***/
+
+--D1 인사관리부 -> 인사팀으로 변경
+UPDATE DEPARTMENT2
+SET dept_title = '인사팀'
+WHERE dept_id = 'D1';
+SELECT * FROM DEPARTMENT2
+WHERE DEPT_ID = 'D1';
+--D3 마케팅부 -> 마케팅팀 변경
+UPDATE DEPARTMENT2
+SET dept_title = '마케팅팀'
+WHERE dept_id = 'D3';
+SELECT * FROM DEPARTMENT2
+WHERE DEPT_ID = 'D3';
+
+--D8 기술지원부 -> 기술지원팀 변경
+UPDATE DEPARTMENT2
+SET dept_title = '기술지원팀'
+WHERE dept_id = 'D8';
+SELECT * FROM DEPARTMENT2
+WHERE DEPT_ID = 'D8';
+
+SELECT * FROM DEPARTMENT2;
+--수정된 내용을 저장하길 원한다면 COMMIT; 
+--저장하지 않길 원한다면 ROLLBACK;
+COMMIT;
+--EMPLOYEE2 테이블에서 BONUS를 받지 않은 사원의 
+--BONUS를 0.1로 변경 
+UPDATE EMPLOYEE2
+SET BONUS = 0.1
+WHERE BONUS IS NULL;
+
+SELECT EMP_NAME,BONUS
+FROM EMPLOYEE2;
+
+ROLLBACK;
+
+-- 모든 직원의 기본 급여 인상 EMPLOYEE2 
+UPDATE EMPLOYEE2
+SET SALARY = SALARY*1.1;
+
+SELECT EMP_NAME,SALARY
+FROM EMPLOYEE2;
+-- D9 부서의 모든 직원의 보너스를 0.4로 수정 EMPLOYEE2
+UPDATE EMPLOYEE2
+SET BONUS = 0.4
+WHERE dept_code = 'D9';
+--확인
+SELECT DEPT_CODE,BONUS 
+FROM EMPLOYEE2 
+WHERE DEPT_CODE = 'D9';
+--UPDATE 테이블명 SET 컬럼명 = 변경할값
+
+-- DEPT_CODE가 NULL인 직원은 D3부서로 이동 
+UPDATE EMPLOYEE2
+SET DEPT_CODE = 'D3'
+WHERE DEPT_CODE IS NULL;
+
+--특정 입사일(2000-01-01) 이후 입사한 직원의 급여 수정
+--HRIE_DATE
+UPDATE EMPLOYEE2
+SET SALARY = SALARY*1.2
+WHERE HIRE_DATE > TO_DATE('2000-01-01','YYYY-MM-DD');
+
+--1997-09-12에 입사한 직원 퇴사처리 
+-- ENY_YN
+UPDATE EMPLOYEE2
+SET ENT_YN = 'Y'
+WHERE HIRE_DATE = TO_DATE('1997-09-12','YYYY-MM-DD');
+
+SELECT HIRE_DATE,ENT_YN FROM EMPLOYEE2
+WHERE HIRE_DATE = TO_DATE('1997-09-12');
+
+ROLLBACK;
+SELECT * FROM EMPLOYEE2;
+
+SELECT EMP_NAME,EMAIL FROM EMPLOYEE2;
+--특정 도메인 주소 변경
+UPDATE EMPLOYEE2
+SET EMAIL = REPLACE(EMAIL,'or.kr','KH.KH');
+
+SELECT EMP_NAME,EMAIL FROM EMPLOYEE2;
+
+--핸드폰번호 employee2 에서 010뒤에 -붙여서 변경 
+update employee2
+set PHONE = replace(PHONE,'010','010-')
+WHERE PHONE LIKE '010%';
+/*
+EMPLOYEE2."PHONE" (actual:13,maximum:12)
+-> 행 최대 크기 12자리로 설정해줬기 때문에 나중에 발생하는  에러
+-->행 최대 크기를 늘리거나 다시 돌아가기 rollback;
+*/
+ROLLBACK;
+select phone from employee2;
+
+--특정 입사일을 가진 직원의 입사일 변경 
+--hire-date 1999-09-09 입사한직원 -> 2000-01-02
+UPDATE EMPLOYEE2
+SET HIRE_DATE = TO_DATE('2000-01-02')
+WHERE HIRE_DATE = TO_DATE('1999-09-09');
+
+COMMIT;
+
+SELECT HIRE_DATE FROM EMPLOYEE2;
+
+UPDATE DEPARTMENT2
+SET dept_title = '인사팀';
+
+SELECT * FROM DEPARTMENT2;
+
+ROLLBACK;
+
