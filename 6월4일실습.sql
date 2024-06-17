@@ -68,12 +68,15 @@
     SELECT STUDENT_NO,STUDENT_NAME,DEPARTMENT_NAME
     FROM TB_STUDENT S,TB_DEPARTMENT D
     WHERE S.DEPARTMENT_NO = D.DEPARTMENT_NO
-    ORDER BY 2;
+    ORDER BY 2; -- SELECT 컬럼명 순서 2번째인 NAME 오름차순 정렬 
 
 -- 7번
 -- 춘 기술대학교의 과목 이름, 해당 과목을 수업하는 학과 이름을 조회하시오.
-
+   
 -- ANSI
+    SELECT  
+    FROM 
+    WHERE 
 -- ORACLE
 
 
